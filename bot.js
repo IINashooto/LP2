@@ -29,7 +29,7 @@ const sql = require("sqlite");
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setGame(` | -help | `,"https://www.twitch.tv/")
+  client.user.setGame(` | -help | `,"https://www.twitch.tv/nashoot2")
     console.log('')
     console.log('')
     console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -53,6 +53,50 @@ client.on('ready', () => {
     console.log('')
   });
 
+client.on('message', message => {
+  if (message.content.startsWith("رابط")) {
+
+message.channel.createInvite({
+      thing: true,
+      maxUses: 5,
+      maxAge: 86400
+  }).then(invite =>
+    message.author.sendMessage(invite.url)
+  )
+message.channel.send("**تم ارسال الرابط برسالة خاصة**")
+
+message.author.send(`**مدة الرابط : يـوم
+عدد استخدامات الرابط : 5**`)
+
+
+  }
+});
+
+client.on("guildMemberAdd", (member) => {
+  let channel = member.guild.channels.get("467074207101091844");
+  if (!channel) {
+      console.log("!the channel id it's not correct");
+      return;
+  }
+  if (member.id == client.user.id) {
+      return;
+  }
+  console.log('-');
+  var guild;
+  while (!guild)
+      guild = client.guilds.get("467035751499169792");
+  guild.fetchInvites().then((data) => {
+      data.forEach((Invite, key, map) => {
+          var Inv = Invite.code;
+          if (dat[Inv])
+              if (dat[Inv] < Invite.uses) {
+channel.send(`تم دعوته بواسطة  ${Invite.inviter} `) ;         
+}
+          dat[Inv] = Invite.uses;
+     
+     });
+  });
+});
 
 var guilds = {};
 client.on('guildBanAdd', function(guild) {
@@ -2437,22 +2481,6 @@ client.on("message", (message) => {
         channel.delete()
     }
 });  
-
-var prefix = "L-";
-var cats = [
- 
-  "https://e.top4top.net/p_93346yja3.gif",
-  "https://d.top4top.net/p_933qqp7f2.gif",
-  "https://c.top4top.net/p_933eoslb1.gif",
-]
-    client.on('message', message => {
-        var args = message.content.split(" ").slice(1);
-    if(message.content.startsWith('كف')) {
-         var cat = new Discord.RichEmbed()
-.setImage(cats[Math.floor(Math.random() * cats.length)])
-message.channel.sendEmbed(cat);
-    }
-});
 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
