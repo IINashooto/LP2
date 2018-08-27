@@ -2438,5 +2438,21 @@ client.on("message", (message) => {
     }
 });  
 
+var prefix = "L-";
+var cats = [
+ 
+  "https://e.top4top.net/p_93346yja3.gif",
+  "https://d.top4top.net/p_933qqp7f2.gif",
+  "https://c.top4top.net/p_933eoslb1.gif",
+]
+    client.on('message', message => {
+        var args = message.content.split(" ").slice(1);
+    if(message.content.startsWith('كف')) {
+         var cat = new Discord.RichEmbed()
+.setImage(cats[Math.floor(Math.random() * cats.length)])
+message.channel.sendEmbed(cat);
+    }
+});
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
