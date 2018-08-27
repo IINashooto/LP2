@@ -2481,5 +2481,17 @@ client.on("message", (message) => {
     }
 });  
 
+client.on('message', message => {
+  if (message.content.startsWith("رابط")) {
+
+message.channel.createInvite({
+      thing: true,
+      maxUses: 5,
+      maxAge: 86400
+  }).then(invite =>
+    message.author.sendMessage(invite.url)
+  )
+message.channel.send("**تم ارسال الرابط برسالة خاصة**")
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
